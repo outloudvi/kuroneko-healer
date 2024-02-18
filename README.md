@@ -8,3 +8,10 @@ It can do a behavior-based check, including:
 * How many users the note is @-ing.
 * Whether the image is identical (**or similar to**, thanks to Misskey's usage of [BlurHash](https://blurha.sh)!) to a known spam image
 * Whether the note text has keywords linked to the spamming behavior.
+
+### Limitations (that makes it basically uselesss)
+* Non-admin Misskey users cannot delete notes.
+* The note deletion API of Misskey is heavily throttled.
+
+### License
+MIT
