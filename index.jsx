@@ -76,12 +76,14 @@ const Page = () => {
   const getNotifications = async () => {
     const notifications = await pickNotifications(domain, token)
     console.log('Notifications:', notifications)
-    setNotifications(notifications)
+    setNotifications(notifications.filter((x) => x.note !== undefined))
   }
 
   const doAction = async () => {
     const noteIds = [
+      ...document.querySelectorAll(
         'input.removeNote[type="checkbox"][checked]'
+      ),
     ].map((x) => x.name)
     for (const i of noteIds) {
       await deleteNote(domain, token, i)
@@ -139,8 +141,11 @@ const Page = () => {
               .map((x) => stringMatch(x, blurHash))
               .reduce((a, b) => (a > b ? a : b))
 
+            const mentionsCount = note.mentions?.length ?? 0
+
             const isKeywordHit =
-              spamKeywords.filter((x) => note.text.includes(x)).length > 0
+              spamKeywords.filter((x) => (note.text ?? '').includes(x)).length >
+              0
 
             const verdictItems = [
               [`MD5: ${hasSpamMd5}`, hasSpamMd5],
@@ -148,10 +153,7 @@ const Page = () => {
                 `BlurHash: ${(maxBlurHashRate * 100).toFixed(1)}%`,
                 maxBlurHashRate > dangerousBlurHashSimilarity,
               ],
-              [
-                `Mentions: ${note.mentions.length}`,
-                note.mentions.length >= dangerousAtCount,
-              ],
+              [`Mentions: ${mentionsCount}`, mentionsCount >= dangerousAtCount],
               [`Keyword ${isKeywordHit ? '' : 'not '}hit`, isKeywordHit],
             ]
             const autoCheck =
@@ -163,7 +165,7 @@ const Page = () => {
                 <td>{userHandle}</td>
                 <td>{note.text}</td>
                 <td>
-                  {note.files.length > 0 ? (
+                  {note.files?.length > 0 ? (
                     <img
                       src={note.files?.[0]?.url}
                       style={{
