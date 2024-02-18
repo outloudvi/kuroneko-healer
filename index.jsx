@@ -190,6 +190,10 @@ const Page = () => {
                     type="checkbox"
                     checked={autoCheck}
                   />
+                  <br />
+                  <button onClick={() => deleteNote(domain, token, note.id)}>
+                    Kill this
+                  </button>
                 </td>
               </tr>
             )
