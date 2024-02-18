@@ -35,7 +35,7 @@ function pickNotifications(domain, token, limit = 30) {
 }
 
 function deleteNote(domain, token, noteId) {
-  return fetch(`https://${domain}/api/i/notifications`, {
+  return fetch(`https://${domain}/api/notes/delete`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
