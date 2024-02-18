@@ -188,7 +188,7 @@ const Page = () => {
                     className="removeNote"
                     name={note.id}
                     type="checkbox"
-                    checked={autoCheck}
+                    defaultChecked={autoCheck}
                   />
                   <br />
                   <button onClick={() => deleteNote(domain, token, note.id)}>
