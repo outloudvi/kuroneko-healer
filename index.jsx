@@ -81,6 +81,7 @@ const Page = () => {
       await deleteNote(domain, token, i)
       console.log(`Removed ${i}`)
     }
+    alert(`Deleted ${noteIds.length} items.`)
   }
 
   return (
