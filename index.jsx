@@ -132,6 +132,9 @@ const Page = () => {
               .map((x) => stringMatch(x, blurHash))
               .reduce((a, b) => (a > b ? a : b))
 
+            const isKeywordHit =
+              spamKeywords.filter((x) => note.text.includes(x)).length > 0
+
             const verdictItems = [
               [`MD5: ${hasSpamMd5}`, hasSpamMd5],
               [
@@ -142,10 +145,7 @@ const Page = () => {
                 `Mentions: ${note.mentions.length}`,
                 note.mentions.length >= dangerousAtCount,
               ],
-              [
-                'Keyword hit',
-                spamKeywords.filter((x) => note.text.includes(x)).length > 0,
-              ],
+              [`Keyword ${isKeywordHit ? '' : 'not '}hit`, isKeywordHit],
             ]
             const autoCheck =
               verdictItems.filter((x) => x[1] === true).length > 0
