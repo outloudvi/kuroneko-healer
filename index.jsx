@@ -20,6 +20,12 @@ const spamKeywords = ['#診断メーカー', '黒猫サーバー', '한국괴물
 const dangerousAtCount = 5
 const dangerousBlurHashSimilarity = 0.8
 
+function sleep(sec) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, sec * 1000)
+  })
+}
+
 function pickNotifications(domain, token, limit = 30) {
   return fetch(`https://${domain}/api/i/notifications`, {
     headers: {
@@ -79,7 +85,8 @@ const Page = () => {
     ].map((x) => x.name)
     for (const i of noteIds) {
       await deleteNote(domain, token, i)
-      console.log(`Removed ${i}`)
+      await sleep(1.2)
+      console.log(`Removed ${i} - check the result in DevTools`)
     }
     alert(`Deleted ${noteIds.length} items.`)
   }
@@ -120,7 +127,7 @@ const Page = () => {
             <th>Kill?</th>
           </tr>
           {notifications.map((item, key) => {
-            const { id, user, note } = item
+            const { user, note } = item
             const userHandle = `@${user.username}@${user.host}`
 
             // rules
@@ -152,7 +159,7 @@ const Page = () => {
 
             return (
               <tr key={key}>
-                <td>{id}</td>
+                <td>{note.id}</td>
                 <td>{userHandle}</td>
                 <td>{note.text}</td>
                 <td>
@@ -177,7 +184,7 @@ const Page = () => {
                 <td>
                   <input
                     className="removeNote"
-                    name={id}
+                    name={note.id}
                     type="checkbox"
                     checked={autoCheck}
                   />
