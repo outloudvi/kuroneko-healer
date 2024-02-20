@@ -15,7 +15,7 @@ const spamBlurhashes = [
   'eRQ0Hyrq.8IV%MVD4T%gxuIUrqD%ozxuRj~q?bM{M{%M~qxuM{t6bH',
 ]
 
-const spamKeywords = ['#診断メーカー', '黒猫サーバー', '한국괴물군']
+const spamKeywords = ['#診断メーカー', '黒猫サーバー', '한국괴물군', '画像が貼れなかったのでメンションだけします']
 
 const dangerousAtCount = 5
 const dangerousBlurHashSimilarity = 0.8
