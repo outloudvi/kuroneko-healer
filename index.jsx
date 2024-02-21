@@ -81,10 +81,10 @@ const Page = () => {
 
   const doAction = async () => {
     const noteIds = [
-      ...document.querySelectorAll(
-        'input.removeNote[type="checkbox"][checked]'
-      ),
-    ].map((x) => x.name)
+      ...document.querySelectorAll('input.removeNote[type="checkbox"]'),
+    ]
+      .filter((x) => x.checked)
+      .map((x) => x.name)
     for (const i of noteIds) {
       await deleteNote(domain, token, i)
       await sleep(1.2)
